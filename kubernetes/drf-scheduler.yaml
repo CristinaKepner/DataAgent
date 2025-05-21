@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: drf-config
+data:
+  policy.json: |
+    {
+      "kind": "Policy",
+      "apiVersion": "v1",
+      "predicates": [
+        {"name": "PodFitsResources"}
+      ],
+      "priorities": [
+        {
+          "name": "DRF",
+          "weight": 1,
+          "argument": {
+            "drfResources": ["cpu", "memory"]
+          }
+        }
+      ]
+    }

@@ -3,24 +3,28 @@ kind: Deployment
 metadata:
   name: dataagent-backend
 spec:
-  replicas: 3  # 增加副本数提升吞吐
-  strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dataagent
   template:
+    metadata:
+      labels:
+        app: dataagent
     spec:
       containers:
-      - resources:
+      - name: backend
+        image: dataagent-backend:latest
+        resources:
           requests:
             cpu: "2"
             memory: "4Gi"
           limits:
-            cpu: "4" 
+            cpu: "4"
             memory: "8Gi"
-      - name: backend
-        image: dataagent-backend:latest
         ports:
+        - containerPort: 8000
+      schedulerName: drf-scheduler  # 指定DRF调度器
         - containerPort: 8080
         env:
         - name: SPRING_PROFILES_ACTIVE

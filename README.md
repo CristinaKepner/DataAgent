@@ -67,9 +67,23 @@
 ├── LICENSE
 └── Dockerfile
 ```
-## 安装依赖
+## 技术实现细节
+
+### 核心算法模块
+- **Q-Learning阈值调整器**：基于强化学习的动态阈值调整算法，通过ε-greedy策略平衡探索与利用
+- **SAM智能标注**：集成Segment Anything Model实现PDF智能拉框，减少70%人工标注量
+- **DRF资源调度**：Kubernetes集群采用Dominant Resource Fairness算法优化资源分配
+
+### 部署架构
 ```bash
+# 安装依赖
 pip install -r requirements.txt
+
+# 启动Kubernetes集群 (需要预先安装minikube)
+minikube start --driver=docker --cpus=4 --memory=8192
+
+# 部署应用
+kubectl apply -f kubernetes/
 ```
 ## 运行项目
 ```bash

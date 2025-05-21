@@ -1,0 +1,8 @@
+sam:
+  model_type: vit_b
+  checkpoint_path: models/sam_vit_b_01ec64.pth
+
+q_learning:
+  state_space: 100
+  action_space: 20
+  learning_rate: 0.1
