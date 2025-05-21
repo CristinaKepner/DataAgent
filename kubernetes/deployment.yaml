@@ -3,16 +3,21 @@ kind: Deployment
 metadata:
   name: dataagent-backend
 spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: dataagent-backend
+  replicas: 3  # 增加副本数提升吞吐
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   template:
-    metadata:
-      labels:
-        app: dataagent-backend
     spec:
       containers:
+      - resources:
+          requests:
+            cpu: "2"
+            memory: "4Gi"
+          limits:
+            cpu: "4" 
+            memory: "8Gi"
       - name: backend
         image: dataagent-backend:latest
         ports:
