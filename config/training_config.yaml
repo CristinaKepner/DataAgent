@@ -1,0 +1,10 @@
+training:
+  base_model: "bert-base-uncased"
+  pretrain_ratio: 0.8
+  lora:
+    r: 8
+    alpha: 16
+    dropout: 0.1
+cot:
+  error_cases_db: "data/error_cases.db"
+  max_cases: 1000

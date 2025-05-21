@@ -88,3 +88,17 @@ async def predict_masks(file: UploadFile = File(...)):
         results.append([contour.tolist() for contour in contours])
     
     return {"masks": results}
+
+from src.quality_check import DualEngineQualityCheck
+from src.prelabel_trainer import PreLabelTrainer
+
+app = FastAPI(title="DataAgent Platform")
+
+# 初始化所有核心模块
+quality_checker = DualEngineQualityCheck()
+prelabel_trainer = PreLabelTrainer("config/prelabel_config.yaml")
+
+@app.post("/api/quality_check")
+async def quality_check(annotations: Dict[str, Any]):
+    checker = DualEngineQualityCheck()
+    return checker.cross_validate(annotations)

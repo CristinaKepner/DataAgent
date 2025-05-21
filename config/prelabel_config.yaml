@@ -1,0 +1,8 @@
+prelabel:
+  few_shot_samples: 5
+  incremental_learning: true
+  gpt_model: "gpt-4-turbo"
+  cost_reduction_target: 0.32
+training:
+  closed_loop:
+    steps: ["gpt_label", "human_verify", "private_model"]
