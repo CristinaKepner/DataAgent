@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dataagent-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dataagent-backend
+  template:
+    metadata:
+      labels:
+        app: dataagent-backend
+    spec:
+      containers:
+      - name: backend
+        image: dataagent-backend:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "prod"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dataagent-service
+spec:
+  selector:
+    app: dataagent-backend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
