@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from algorithms.threshold_adjuster import QLearningThresholdAdjuster
+from airflow import settings
+from airflow.models import DagBag
 
 app = FastAPI(title="DataAgent Platform")
 
@@ -26,3 +28,10 @@ async def startup():
     init_airflow_dag()
     # 初始化Kubernetes资源调度
     init_kubernetes_scheduler()
+
+
+def init_airflow_dag():
+    dagbag = DagBag(
+        dag_folder='workflow/',
+        include_examples=False
+    )

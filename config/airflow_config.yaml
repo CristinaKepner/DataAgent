@@ -1,0 +1,5 @@
+core:
+  dags_folder: workflow/
+  parallelism: 32
+  max_active_tasks_per_dag: 16
+  dagbag_import_timeout: 30
